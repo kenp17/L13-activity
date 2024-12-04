@@ -28,3 +28,16 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        
+      - name: Run TruffleHog Scan
+        uses: trufflesecurity/trufflehog-action@v1
+        with:
+          # Optional: Set to true if you want to see full results.
+          severity: "high"  # You can choose severity levels: "low", "medium", "high".
+
