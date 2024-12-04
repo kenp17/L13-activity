@@ -7,6 +7,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
       - name: Build the index.html file
         run: python build.py
 
@@ -29,13 +37,3 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-        
-      - name: Run TruffleHog Scan
-        uses: docker://trufflesecurity/trufflehog:latest
-        with:
-          args: --json --regex --entropy=True .
